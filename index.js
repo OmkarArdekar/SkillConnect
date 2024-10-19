@@ -27,7 +27,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "skillconnect",
-  password: "Master@01@#",
+  password: "<Database Password>",
 });
 
 app.listen(port, () => {
