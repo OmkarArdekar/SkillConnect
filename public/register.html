@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="logoDisplay.png" />
+    <title>SkillConnect - Login Page</title>
+    <link rel="stylesheet" href="register.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Roboto:wght@100;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="background-image"></div>
+    <div class="login-container">
+      <div class="logo">
+        <img src="logo.png" alt="Logo" id="logo-symbol" class="logo-content" />
+        <img
+          src="logoLaptop.png"
+          alt="SkillConnect"
+          id="logo-text"
+          class="logo-content"
+        />
+      </div>
+      <hr />
+      <div class="login">
+        <form method="POST" action="http://localhost:8080/register">
+          <div class="input-group">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username, Phone number or Email"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a Password"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <select id="role" name="role" required>
+              <option value="">Select Role</option>
+              <option value="Student">Student</option>
+              <option value="Teacher">Teacher</option>
+            </select>
+          </div>
+          <div class="login-btn">
+            <button type="submit" id="login-button">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="right-side">
+      <h2 id="end" class="level">Consciousness</h2>
+      <img src="brainImage.png" alt="BrainSketch" class="brain" />
+      <h2 id="mid" class="level">Knowledge</h2>
+      <h2 id="start" class="level">Senses</h2>
+      <h2 id="one" class="level">&uarr;</h2>
+      <h2 id="two" class="level">&uarr;</h2>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
