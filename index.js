@@ -27,7 +27,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "skillconnect",
-  password: "<MySQL Database Password>",
+  password: "<MySQL DataBase Password",
 });
 
 app.listen(port, () => {
@@ -45,7 +45,6 @@ app.post("/register", (req, res) => {
   try {
     connection.query(q, [user], (err, result) => {
       if (err) throw err;
-      console.log(result);
       res.redirect("/index.html");
     });
   } catch (err) {
@@ -64,8 +63,6 @@ app.post("/home", (req, res) => {
   connection.query(q, (err, result) => {
     profiles = result;
   });
-  console.log("Profile");
-  console.log(profiles);
   connection.query(studentQuery, [username, password], (err, studentResult) => {
     if (err) {
       console.log(err);
@@ -78,7 +75,6 @@ app.post("/home", (req, res) => {
         username: studentResult[0].username,
         role: "student",
       };
-      console.log(studentResult);
       return res.render("layout.ejs", {
         id: studentResult,
         username,
@@ -135,8 +131,6 @@ app.get("/home", (req, res) => {
   let username = req.session.user.username;
   let role = req.session.user.role;
 
-  console.log("User ID:", userId, "Username:", username, "Role:", role);
-
   let userQuery = `SELECT * FROM ${role} WHERE id = ?`;
 
   connection.query(userQuery, [userId], (err, result) => {
@@ -157,8 +151,6 @@ app.get("/home", (req, res) => {
       role: result[0].role,
     };
 
-    console.log("Updated session user:", req.session.user);
-
     res.render("layout.ejs", {
       id: result,
       username: username,
@@ -170,14 +162,11 @@ app.get("/home", (req, res) => {
 //Personal Profile Route
 app.get("/home/profile/:role/:id", (req, res) => {
   let { role, id } = req.params;
-  console.log(role, id);
   let q = `SELECT * FROM ${role} WHERE id = '${id}'`;
 
   try {
     connection.query(q, (err, result) => {
       if (err) throw err;
-      console.log(result);
-      console.log(result);
       res.render("selfProfile.ejs", { result });
     });
   } catch (err) {
@@ -189,7 +178,6 @@ app.get("/home/profile/:role/:id", (req, res) => {
 //Edit Route
 app.get("/home/:role/profile/:id/:col/edit", (req, res) => {
   let { role, id, col } = req.params;
-  console.log(role, id, col);
   res.render("edit.ejs", { role, id, col });
 });
 
@@ -197,12 +185,10 @@ app.get("/home/:role/profile/:id/:col/edit", (req, res) => {
 app.patch("/home/:role/profile/:id/:col/edit", (req, res) => {
   let { role, id, col } = req.params;
   let { newdata } = req.body;
-  console.log(role, id, col, newdata);
   let q = `UPDATE ${role} SET ${col} = '${newdata}' WHERE id = '${id}'`;
   try {
     connection.query(q, (err, result) => {
       if (err) throw err;
-      console.log(result);
     });
     res.redirect(`/home/profile/${role}/${id}`);
   } catch (err) {
@@ -218,7 +204,6 @@ app.get("/home/:id", (req, res) => {
   try {
     connection.query(q, (err, result) => {
       if (err) throw err;
-      console.log(result);
       res.render("teacherProfiles.ejs", { result });
     });
   } catch (err) {
@@ -261,7 +246,6 @@ app.post("/home/rating/:id", (req, res) => {
       q = `UPDATE teacher SET rating = ?, rating_count = ? WHERE id = ?`;
       connection.query(q, [newRating, rateCount, id], (err, updateResult) => {
         if (err) throw err;
-        console.log(updateResult);
         res.redirect("/home");
       });
     });

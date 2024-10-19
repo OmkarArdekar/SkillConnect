@@ -1,3 +1,4 @@
+// JS logic to create a post
 // let createBtn = document.querySelector("#self-profile");
 // let popupInp = document.querySelector(".popup-input");
 // let container = document.querySelector(".container");
