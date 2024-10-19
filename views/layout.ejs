@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/logoDisplay.png" />
+    <title>SkillConnect - Home Page</title>
+    <link rel="stylesheet" href="/layout.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Roboto:wght@100;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Slab:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img class="logo" src="logo.png" alt="Logo" />
+        <div class="search-container">
+          <div class="search-bar">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Welcome <%= username %>!"
+            />
+            <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+          </div>
+          <select id="filter-select">
+            <option value="">Select Category</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Medical">Medical</option>
+            <option value="Commerce">Commerce</option>
+            <option value="Arts">Arts</option>
+            <option value="Science">Science</option>
+          </select>
+        </div>
+        <form method="GET" action="/home/profile/<%=id[0].role%>/<%=id[0].id%>">
+          <button id="self-profile" type="submit"></button>
+        </form>
+      </header>
+      <main class="main">
+        <% for (profile of profiles) { %>
+        <div class="card">
+          <div class="photo"></div>
+          <div class="info">
+            <div class="text">
+              <div id="name"><%= profile.username %></div>
+              <div class="role"><%= profile.subject %></div>
+              <div class="rating">Rating <%= profile.rating %></div>
+            </div>
+            <form method="get" action="/home/<%=profile.id%>" class="btn">
+              <button class="visit">Visit Profile</button>
+            </form>
+          </div>
+        </div>
+        <% } %>
+      </main>
+    </div>
+    <script src="/layout.js"></script>
+  </body>
+</html>

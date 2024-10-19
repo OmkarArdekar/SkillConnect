@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/logoDisplay.png" />
+    <title>SkillConnect - Personal Profile</title>
+    <link rel="stylesheet" href="/selfProfile.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Roboto:wght@100;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto+Slab:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="photo">
+        <img src="/user.png" alt="User Photo" id="userImage" />
+        <h1><%= result[0].username %></h1>
+      </div>
+      <div class="info">
+        <div class="detail">
+          <h2>&nbsp;<i>username:</i>&nbsp;<%= result[0].username %></h2>
+          <form
+            method="get"
+            action="/home/<%=result[0].role%>/profile/<%=result[0].id%>/username/edit"
+          >
+            <button>Edit</button>
+          </form>
+        </div>
+        <div class="detail">
+          <h2>&nbsp;<i>fullname:</i>&nbsp;<%= result[0].fullname %></h2>
+          <form
+            method="get"
+            action="/home/<%=result[0].role%>/profile/<%=result[0].id%>/fullname/edit"
+          >
+            <button>Edit</button>
+          </form>
+        </div>
+        <% if(result[0].role == "teacher") { %>
+        <div class="detail">
+          <h2>&nbsp;<i>Subject/Field:</i>&nbsp;<%= result[0].subject %></h2>
+          <form
+            method="get"
+            action="/home/<%=result[0].role%>/profile/<%=result[0].id%>/subject/edit"
+          >
+            <button>Edit</button>
+          </form>
+        </div>
+        <div class="detail">
+          <h2>&nbsp;<i>Experience:</i>&nbsp;<%= result[0].exp %></h2>
+          <form
+            method="get"
+            action="/home/<%=result[0].role%>/profile/<%=result[0].id%>/exp/edit"
+          >
+            <button>Edit</button>
+          </form>
+        </div>
+        <div class="detail">
+          <h2>&nbsp;<i>Rating:</i>&nbsp;<%= result[0].rating %></h2>
+        </div>
+        <% } %>
+        <form method="GET" action="/home">
+          <button class="back">BACK</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
