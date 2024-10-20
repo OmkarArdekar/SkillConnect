@@ -8,10 +8,3 @@ A platform where teachers create profiles showcasing their teaching experiences,
 1. Download all files and directory from the repo
 2. Enter "npm install" command to install node_modules and all dependencies from the package-lock.json and package.json
 3. Create MySQL Database according to the schema.sql.
-
-# Video of the Project
-
-<video controls>
-  <source src="/SkillConnect/skillconnectvideo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
