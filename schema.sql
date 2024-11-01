@@ -21,3 +21,9 @@ CREATE TABLE teacher (
   role VARCHAR(10) DEFAULT "teacher",
   rating_count INT DEFAULT 0
 );
+
+CREATE TABLE feedbacks (
+  id VARCHAR(50) NOT NULL,
+  username VARCHAR(50),
+  feedback VARCHAR(100)
+);

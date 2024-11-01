@@ -45,6 +45,33 @@
           <% } %>
           <h3><i><%=result[0].rating_count%></i> people have rated this</h3>
         </div>
+        <div class="give-feedback">
+          <h2>Feedbacks</h2>
+          <div id="all-feedbacks">
+            <% var count = 0; for (let feedback of feedbacks) { 
+            if (result[0].id == feedback.id) { %>
+            <p style="background-color: lightblue">
+              <b>@<%= feedback.username %></b><br />&nbsp;<%= feedback.feedback%>
+            </p>
+            <% count++; } } %> 
+            <% if (count == 0) { %>
+            <h3 style="text-align: center">Currently No Feedbacks!</h3>
+            <% } %>
+          </div>
+          <form
+            method="post"
+            action="/home/profile/<%=result[0].id%>/feedback"
+            id="fb-form"
+          >
+            <input
+              type="text"
+              placeholder="Give your valuable feedback..."
+              name="feedback"
+              id="fb"
+            />
+            <button>Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </body>

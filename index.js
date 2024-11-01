@@ -27,7 +27,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "skillconnect",
-  password: "<MySQL DataBase Password",
+  password: "<MySQL DataBase Password>",
 });
 
 app.listen(port, () => {
@@ -48,7 +48,6 @@ app.post("/register", (req, res) => {
       res.redirect("/index.html");
     });
   } catch (err) {
-    console.log(err);
     res.send("Some error occured in DB");
   }
 });
@@ -58,7 +57,7 @@ app.post("/home", (req, res) => {
   let { username, password } = req.body;
 
   let studentQuery = `SELECT * FROM student WHERE username = ? AND password = ?`;
-  let q = `SELECT * FROM teacher`;
+  let q = `SELECT * FROM teacher ORDER BY rating DESC`;
   let profiles;
   connection.query(q, (err, result) => {
     profiles = result;
@@ -114,7 +113,7 @@ app.post("/home", (req, res) => {
 
 //HomePage Route
 app.get("/home", (req, res) => {
-  let q = `SELECT * FROM teacher`;
+  let q = `SELECT * FROM teacher ORDER BY rating DESC`;
   let profiles;
 
   connection.query(q, (err, result) => {
@@ -200,11 +199,18 @@ app.patch("/home/:role/profile/:id/:col/edit", (req, res) => {
 //Teacher Profile
 app.get("/home/:id", (req, res) => {
   let { id } = req.params;
-  let q = `SELECT * FROM teacher WHERE id = '${id}'`;
+  let q = `SELECT * FROM feedbacks`;
   try {
-    connection.query(q, (err, result) => {
-      if (err) throw err;
-      res.render("teacherProfiles.ejs", { result });
+    connection.query(q, (err, feedbacks) => {
+      q = `SELECT * FROM teacher WHERE id = '${id}'`;
+      try {
+        connection.query(q, (err, result) => {
+          if (err) throw err;
+          res.render("teacherProfiles.ejs", { result, feedbacks });
+        });
+      } catch (err) {
+        res.send("Some error occured in DB");
+      }
     });
   } catch (err) {
     res.send("Some error occured in DB");
@@ -251,5 +257,21 @@ app.post("/home/rating/:id", (req, res) => {
     });
   } catch (err) {
     res.send("Some error occur in DB");
+  }
+});
+
+//Feedback Route
+app.post("/home/profile/:id/feedback", (req, res) => {
+  let { id } = req.params;
+  let { feedback } = req.body;
+  let user = [id, req.session.user.username, feedback];
+  let q = `INSERT INTO feedbacks (id, username, feedback) VALUES (?)`;
+  try {
+    connection.query(q, [user], (err, result) => {
+      if (err) throw err;
+      res.redirect("/home");
+    });
+  } catch (err) {
+    res.send("Some error occured in DB");
   }
 });

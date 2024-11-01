@@ -19,7 +19,6 @@ h2 {
 .container {
   width: 70%;
   height: 100vh;
-  background-color: rgb(240, 248, 255, 0.2);
   margin: 0 15% 0 15%;
   box-shadow: 0 0 1rem black;
   border-radius: 1rem;
@@ -31,10 +30,19 @@ h2 {
   scrollbar-width: none;
 }
 
-.user,
-.profile {
+.user {
   width: 90%;
   height: 46%;
+  border: 0.1rem solid black;
+  background-color: rgba(26, 193, 226, 0.2);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 0 0.5rem black;
+}
+
+.profile {
+  width: 90%;
   border: 0.1rem solid black;
   background-color: rgba(26, 193, 226, 0.2);
   border-radius: 1rem;
@@ -55,8 +63,6 @@ h2 {
   background-color: white;
   border: 0.2rem solid black;
   border-radius: 50%;
-  /* background-image: url(user.png);
-  background-size: cover; */
 }
 
 .info {
@@ -69,17 +75,20 @@ h2 {
 
 .profile {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 }
 
 .rating,
-.feedback {
-  height: 90%;
-  width: 46%;
+.feedback,
+.give-feedback {
+  height: 20em;
+  width: 90%;
   background-color: white;
   border: 0.2rem solid black;
   border-radius: 1rem;
+  margin: 5px;
 }
 
 #rateBtn {
@@ -97,4 +106,48 @@ h2 {
 .res {
   font-size: 3rem;
   text-decoration: 2px underline yellow;
+}
+
+.give-feedback {
+  text-align: left;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#all-feedbacks {
+  border: 2px solid black;
+  width: 90%;
+  height: 50%;
+  overflow: scroll;
+  scrollbar-width: thin;
+  background-color: whitesmoke;
+}
+
+#fb-form {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#fb {
+  font-size: medium;
+  border: 2px solid black;
+  width: 80%;
+  height: 2rem;
+}
+
+#fb-form button {
+  color: white;
+  border: 2px solid black;
+  height: 2.5rem;
+  font-size: medium;
+  background-color: green;
+}
+
+#fb-form button:hover {
+  color: yellow;
+  border-color: gold;
 }
