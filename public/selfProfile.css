@@ -78,6 +78,8 @@ button:hover {
 
 #userImage {
   border-radius: 50%;
+  height: 55%;
+  width: 60%;
 }
 
 .back {
@@ -87,4 +89,19 @@ button:hover {
   border: 2px solid black;
   color: black;
   border-radius: 0.5rem;
+}
+
+#image {
+  width: 80%;
+  text-align: center;
+}
+
+#image button {
+  height: 3rem;
+  width: 50%;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  box-shadow: 0 0 10px whitesmoke;
+  border-radius: 1rem;
 }

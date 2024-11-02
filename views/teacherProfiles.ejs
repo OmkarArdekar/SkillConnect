@@ -9,7 +9,9 @@
   <body>
     <div class="container">
       <div class="user">
-        <img src="/user.png" alt="userImage" class="photo" />
+        <img src="<%= result[0].image ? '/home/profile/image/' + result[0].id +
+        "?table=teacher" : '/user.png' %>" alt="Teacher Profile Image"
+        class="photo" />
         <div class="info">
           <h2>About</h2>
           <h3><i>Username: </i><%=result[0].username%></h3>
@@ -48,13 +50,13 @@
         <div class="give-feedback">
           <h2>Feedbacks</h2>
           <div id="all-feedbacks">
-            <% var count = 0; for (let feedback of feedbacks) { 
-            if (result[0].id == feedback.id) { %>
+            <% var count = 0; for (let feedback of feedbacks) { if (result[0].id
+            == feedback.id) { %>
             <p style="background-color: lightblue">
-              <b>@<%= feedback.username %></b><br />&nbsp;<%= feedback.feedback%>
+              <b>@<%= feedback.username %></b><br />&nbsp;<%=
+              feedback.feedback%>
             </p>
-            <% count++; } } %> 
-            <% if (count == 0) { %>
+            <% count++; } } %> <% if (count == 0) { %>
             <h3 style="text-align: center">Currently No Feedbacks!</h3>
             <% } %>
           </div>

@@ -51,14 +51,23 @@
             <option value="Science">Science</option>
           </select>
         </div>
-        <form method="GET" action="/home/profile/<%=id[0].role%>/<%=id[0].id%>">
-          <button id="self-profile" type="submit"></button>
+        <form
+          id="imageForm"
+          method="GET"
+          action="/home/profile/<%=id[0].role%>/<%=id[0].id%>"
+        >
+          <img id="self-profile" src="<%= id[0].image ? '/home/profile/image/' +
+          id[0].id + "?table=" + id[0].role : "/user.png" %>" alt="Submit"
+          style="cursor: pointer;"
+          onclick="document.getElementById('imageForm').submit();" />
         </form>
       </header>
       <main class="main">
         <% for (profile of profiles) { %>
         <div class="card">
-          <div class="photo"></div>
+          <img src="<%= profile.image ? '/home/profile/image/' + profile.id +
+          "?table=teacher": '/profileImage.png' %>" alt="Teacher Profile Image"
+          class="photo" />
           <div class="info">
             <div class="text">
               <div id="name"><%= profile.username %></div>

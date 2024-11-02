@@ -32,7 +32,17 @@
   <body>
     <div class="container">
       <div class="photo">
-        <img src="/user.png" alt="User Photo" id="userImage" />
+        <img
+          src="<%= imageSrc || '/user.png' %>"
+          alt="User Photo"
+          id="userImage"
+        />
+        <form
+          action="/home/<%=result[0].role%>/profile/<%=result[0].id%>/image"
+          id="image"
+        >
+          <button>Change Profile Image</button>
+        </form>
         <h1><%= result[0].username %></h1>
       </div>
       <div class="info">

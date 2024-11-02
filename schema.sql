@@ -7,7 +7,8 @@ CREATE TABLE student (
   username VARCHAR(50) UNIQUE,
   password VARCHAR(50) NOT NULL,
   fullname VARCHAR(100),
-  role VARCHAR(10) DEFAULT "student"
+  role VARCHAR(10) DEFAULT "student",
+  image LONGBLOB
 );
 
 CREATE TABLE teacher (
@@ -19,7 +20,8 @@ CREATE TABLE teacher (
   rating FLOAT DEFAULT 0,
   exp VARCHAR(10),
   role VARCHAR(10) DEFAULT "teacher",
-  rating_count INT DEFAULT 0
+  rating_count INT DEFAULT 0,
+  image LONGBLOB
 );
 
 CREATE TABLE feedbacks (

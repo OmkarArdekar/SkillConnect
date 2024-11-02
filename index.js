@@ -3,8 +3,11 @@ const app = express();
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const mysql = require("mysql2");
+const multer = require("multer");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
@@ -32,6 +35,11 @@ const connection = mysql.createConnection({
 
 app.listen(port, () => {
   console.log(`listening through port ${port}`);
+});
+
+//EntryPoint Page Route
+app.get("/", (req, res) => {
+  res.redirect("/index.html");
 });
 
 //Registration Route
@@ -158,18 +166,47 @@ app.get("/home", (req, res) => {
   });
 });
 
+//Image Verification Route
+app.get("/home/profile/image/:id", (req, res) => {
+  const { id } = req.params;
+  const { table } = req.query;
+
+  const query = `SELECT image FROM ${mysql.escapeId(table)} WHERE id = ?`;
+
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error("Error fetching image:", err);
+      return res.status(500).send("Error retrieving image");
+    }
+
+    if (results.length > 0 && results[0].image) {
+      res.contentType("image/png");
+      res.send(results[0].image);
+    } else {
+      res.status(404).send("Image not found");
+    }
+  });
+});
+
 //Personal Profile Route
 app.get("/home/profile/:role/:id", (req, res) => {
   let { role, id } = req.params;
-  let q = `SELECT * FROM ${role} WHERE id = '${id}'`;
+  let q = `SELECT * FROM ${mysql.escapeId(role)} WHERE id = '${id}'`;
 
   try {
     connection.query(q, (err, result) => {
       if (err) throw err;
-      res.render("selfProfile.ejs", { result });
+
+      const imageBuffer = result[0].image;
+      const base64Image = imageBuffer ? imageBuffer.toString("base64") : null;
+
+      const imageSrc = base64Image
+        ? `data:image/png;base64,${base64Image}`
+        : null;
+
+      res.render("selfProfile.ejs", { result, imageSrc });
     });
   } catch (err) {
-    console.log(err);
     res.send("Some error in DB");
   }
 });
@@ -191,10 +228,43 @@ app.patch("/home/:role/profile/:id/:col/edit", (req, res) => {
     });
     res.redirect(`/home/profile/${role}/${id}`);
   } catch (err) {
-    console.log(err);
     res.send("Some error in DB");
   }
 });
+
+//Edit Image Route
+app.get("/home/:role/profile/:id/image", (req, res) => {
+  let { role, id } = req.params;
+  res.render("editImage.ejs", { id, role });
+});
+
+//Update Image Route
+app.post(
+  "/home/:role/profile/:id/image",
+  upload.single("image"),
+  (req, res) => {
+    let { role, id } = req.params;
+
+    if (!req.file) {
+      return res.status(400).send("No image uploaded.");
+    }
+
+    const imageData = req.file.buffer;
+
+    let q = `UPDATE ${role} SET image = ? WHERE id = ?`;
+
+    try {
+      connection.query(q, [imageData, id], (err, result) => {
+        if (err) {
+          throw err;
+        }
+        res.redirect(`/home/profile/${role}/${id}`);
+      });
+    } catch (err) {
+      res.status(500).send("Error updating image");
+    }
+  }
+);
 
 //Teacher Profile
 app.get("/home/:id", (req, res) => {
@@ -217,7 +287,7 @@ app.get("/home/:id", (req, res) => {
   }
 });
 
-// Get Rating Route
+//Get Rating Route
 app.get("/home/rating/:id", (req, res) => {
   let { id } = req.params;
   let q = `SELECT * FROM teacher WHERE id = ?`;
@@ -233,7 +303,7 @@ app.get("/home/rating/:id", (req, res) => {
   });
 });
 
-// Update Rating Route
+//Update Rating Route
 app.post("/home/rating/:id", (req, res) => {
   let { rate } = req.body;
   let { id } = req.params;

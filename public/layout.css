@@ -102,9 +102,7 @@ header {
   padding: 0.5rem;
 }
 
-#self-profile {
-  background-image: url(user.png);
-  background-size: cover;
+#self-profile { 
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
@@ -140,9 +138,6 @@ header {
 }
 
 .photo {
-  background-color: azure;
-  background-image: url(profileImage.png);
-  background-size: cover;
   border-radius: 50%;
   height: 55%;
   width: 55%;
