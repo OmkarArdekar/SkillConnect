@@ -13,42 +13,33 @@
         "?table=teacher" : '/user.png' %>" alt="Teacher Profile Image"
         class="photo" />
         <div class="info">
-          <h2>About</h2>
-          <h3><i>Username: </i><%=result[0].username%></h3>
-          <h3><i>FullName: </i><%=result[0].fullname%></h3>
-          <h3><i>Subject: </i><%=result[0].subject%></h3>
-          <h3><i>Experience: </i><%=result[0].exp%></h3>
+          <h1>About</h1>
+          <h3><i>Username:&nbsp; </i><%=result[0].username%></h3>
+          <h3><i>FullName:&nbsp; </i><%=result[0].fullname%></h3>
+          <h3><i>Subject:&nbsp; </i><%=result[0].subject%></h3>
+          <h3><i>Experience:&nbsp; </i><%=result[0].exp%></h3>
         </div>
       </div>
       <div class="profile">
         <div class="rating">
-          <h2>Rating</h2>
+          <h1>Rating</h1>
           <br /><br />
-          <h1><%=result[0].rating%></h1>
+          <h1
+            style="
+              text-decoration: none;
+              text-shadow: 0 0 50px white;
+              font-size: 2.5rem;
+            "
+          >
+            <%=result[0].rating%>
+          </h1>
           <form method="get" action="/home/rating/<%=result[0].id%>">
             <br />
             <button id="rateBtn">Give Rating</button>
           </form>
         </div>
-        <div class="feedback">
-          <h2>Overall Performance</h2>
-          <% if (result[0].rating >= 4.5) { %>
-          <h3 class="res">Excellent</h3>
-          <% } else if (result[0].rating >= 4) { %>
-          <h3 class="res">Very Good</h3>
-          <% } else if (result[0].rating >= 3) { %>
-          <h3 class="res">Good</h3>
-          <% } else if (result[0].rating >= 2) { %>
-          <h3 class="res">Fair</h3>
-          <% } else if (result[0].rating >= 1) { %>
-          <h3 class="res">Poor</h3>
-          <% } else { %>
-          <h3 class="res">No rating given</h3>
-          <% } %>
-          <h3><i><%=result[0].rating_count%></i> people have rated this</h3>
-        </div>
         <div class="give-feedback">
-          <h2>Feedbacks</h2>
+          <h1>Feedbacks</h1>
           <div id="all-feedbacks">
             <% var count = 0; for (let feedback of feedbacks) { if (result[0].id
             == feedback.id) { %>
@@ -73,6 +64,23 @@
             />
             <button>Submit</button>
           </form>
+        </div>
+        <div class="feedback">
+          <h1>Overall Performance</h1>
+          <% if (result[0].rating >= 4.5) { %>
+          <h3 class="res">Excellent</h3>
+          <% } else if (result[0].rating >= 4) { %>
+          <h3 class="res">Very Good</h3>
+          <% } else if (result[0].rating >= 3) { %>
+          <h3 class="res">Good</h3>
+          <% } else if (result[0].rating >= 2) { %>
+          <h3 class="res">Fair</h3>
+          <% } else if (result[0].rating >= 1) { %>
+          <h3 class="res">Poor</h3>
+          <% } else { %>
+          <h3 class="res">No rating given</h3>
+          <% } %>
+          <h3><i><%=result[0].rating_count%></i> people have rated this</h3>
         </div>
       </div>
     </div>
