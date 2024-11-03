@@ -84,7 +84,8 @@ header {
 }
 
 #filter-select {
-  background-color: transparent;
+  color: white;
+  background-color: black;
   height: 2.5rem;
   border: 0.2rem solid black;
   border-radius: 1rem;
@@ -92,6 +93,7 @@ header {
   padding: 0.1rem 1rem 0.1rem 1rem;
   box-shadow: none;
   cursor: pointer;
+  border: 0.1rem solid white;
 }
 
 #search-btn {
@@ -102,10 +104,11 @@ header {
   padding: 0.5rem;
 }
 
-#self-profile { 
+#self-profile {
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
+  border: 0.2rem solid white;
 }
 
 .main {
@@ -135,6 +138,7 @@ header {
   align-items: center;
   box-shadow: 0 0 0.1rem white;
   transition: all 0.3s ease-in-out;
+  border: 0.15rem solid black;
 }
 
 .photo {
@@ -143,6 +147,7 @@ header {
   width: 55%;
   margin-bottom: 0.5rem;
   box-shadow: 0 0 0.1rem gray;
+  border: 0.2rem solid black;
 }
 
 .info {
@@ -155,6 +160,7 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border: 0.1rem solid black;
 }
 
 .text {
@@ -295,8 +301,10 @@ header {
 }
 
 #filter-select:hover {
-  background-color: rgb(24, 154, 180);
+  background-color: white;
+  color: black;
   font-weight: bold;
+  border-color: black;
 }
 
 #self-profile:hover {
