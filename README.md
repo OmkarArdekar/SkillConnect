@@ -1,6 +1,6 @@
 # SkillConnect
 
-[SkillConnect Project Video](https://github.com/user-attachments/assets/0d0d1a5b-98e8-481f-a71e-6834686a5593)
+[SkillConnect Project Video](https://github.com/user-attachments/assets/101d7d0f-fc0f-424c-9622-e9419e0a6ce1)
 
 <br>
 
