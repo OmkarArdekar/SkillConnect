@@ -30,7 +30,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "skillconnect",
-  password: "<MySQL DataBase Password>",
+  password: "<- MySQL DataBase Password ->",
 });
 
 app.listen(port, () => {
