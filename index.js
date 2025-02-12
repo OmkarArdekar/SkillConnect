@@ -20,7 +20,7 @@ app.use(
   session({
     secret: "skillconnect@01",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
 
@@ -30,16 +30,17 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "skillconnect",
-  password: "<MySQL DataBase Password>",
+  // password: "<MySQL DataBase Password>",
+  password: "Master@01@#",
 });
 
 app.listen(port, () => {
-  console.log(`listening through port ${port}`);
+  console.log(`Server is listening through port number ${port}`);
 });
 
 //EntryPoint Page Route
 app.get("/", (req, res) => {
-  res.redirect("/index.html");
+  res.redirect("/html/index.html");
 });
 
 //Registration Route
@@ -53,7 +54,7 @@ app.post("/register", (req, res) => {
   try {
     connection.query(q, [user], (err, result) => {
       if (err) throw err;
-      res.redirect("/index.html");
+      res.redirect("/html/index.html");
     });
   } catch (err) {
     res.send("Some error occured in DB");
@@ -322,7 +323,7 @@ app.post("/home/rating/:id", (req, res) => {
       q = `UPDATE teacher SET rating = ?, rating_count = ? WHERE id = ?`;
       connection.query(q, [newRating, rateCount, id], (err, updateResult) => {
         if (err) throw err;
-        res.redirect("/home");
+        res.redirect(`/home/${id}`);
       });
     });
   } catch (err) {
@@ -339,7 +340,7 @@ app.post("/home/profile/:id/feedback", (req, res) => {
   try {
     connection.query(q, [user], (err, result) => {
       if (err) throw err;
-      res.redirect("/home");
+      res.redirect(`/home/${id}`);
     });
   } catch (err) {
     res.send("Some error occured in DB");
