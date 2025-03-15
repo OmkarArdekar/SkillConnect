@@ -14,7 +14,12 @@
         method="POST"
         action="/home/<%=role%>/profile/<%=id%>/<%=col%>/edit?_method=PATCH"
       >
-        <input type="text" placeholder="Enter New <%=col%>" name="newdata" />
+        <input
+          type="text"
+          placeholder="Enter New <%=col%>"
+          name="newdata"
+          required
+        />
         <br /><br /><br />
         <button>Submit</button>
       </form>

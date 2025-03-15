@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/images/logoDisplay.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Skillconnect</title>
+    <style>
+      * {
+        font-family: "Roboto Condensed", sans-serif;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: black;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        color: #721c24;
+      }
+      p {
+        color: #721c24;
+      }
+      a {
+        font-size: 3rem;
+        color: aliceblue;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="/images/errorImage.png" alt="Error" height="500rem" />
+    <br />
+    <div class="error-container">
+      <h1>Error <%= statusCode %></h1>
+      <p><%= message %></p>
+      <a href="/">Go Back to Home</a>
+    </div>
+  </body>
+</html>
