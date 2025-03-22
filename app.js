@@ -1,13 +1,29 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const mysql = require("mysql2");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
+const { mysqlDB } = require("./database/connection.js");
+
+const connection = mysql.createConnection({
+  host: mysqlDB.host,
+  user: mysqlDB.user,
+  database: mysqlDB.database,
+  password: mysqlDB.password,
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Not Connected to MySQL DataBase");
+    return;
+  }
+  console.log("Connected to MySQL DataBase");
+});
 
 const register = require("./routes/registration.js");
-const login = require("./routes/login.js");
-const home = require("./routes/home.js");
+const index = require("./routes/index.js");
 const profile = require("./routes/profile.js");
 const rating = require("./routes/rating.js");
 
@@ -22,9 +38,14 @@ app.use(
   session({
     secret: "skillconnect@01",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
   })
 );
+
+app.use((req, res, next) => {
+  req.db = connection;
+  next();
+});
 
 let port = 8080;
 app.listen(port, () => {
@@ -36,9 +57,8 @@ app.get("/", (req, res) => {
   res.redirect("/html/index.html");
 });
 
+app.use("/home", index);
 app.use("/register", register);
-app.use("/home", login);
-app.use("/home", home);
 app.use("/home/profile", profile);
 app.use("/home/rating", rating);
 
