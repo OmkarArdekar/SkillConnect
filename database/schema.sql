@@ -5,7 +5,7 @@ USE skillconnect;
 CREATE TABLE student (
   id VARCHAR(50) PRIMARY KEY,
   username VARCHAR(50) UNIQUE,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   fullname VARCHAR(100),
   role VARCHAR(10) DEFAULT "student",
   image LONGBLOB
@@ -14,7 +14,7 @@ CREATE TABLE student (
 CREATE TABLE teacher (
   id VARCHAR(50) PRIMARY KEY,
   username VARCHAR(50) UNIQUE,
-  password VARCHAR(50) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   fullname VARCHAR(100),
   subject VARCHAR(50),
   rating FLOAT DEFAULT 0,

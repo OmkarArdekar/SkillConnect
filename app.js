@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -5,13 +6,12 @@ const mysql = require("mysql2");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError.js");
-const { mysqlDB } = require("./database/connection.js");
 
 const connection = mysql.createConnection({
-  host: mysqlDB.host,
-  user: mysqlDB.user,
-  database: mysqlDB.database,
-  password: mysqlDB.password,
+  host: process.env.HOST,
+  user: process.env.USER,
+  database: process.env.DATABASE_NAME,
+  password: process.env.DB_PASSWORD,
 });
 
 connection.connect((err) => {
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
   next();
 });
 
-let port = 8080;
+let port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is listening through port number ${port}`);
 });

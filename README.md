@@ -49,7 +49,7 @@ mysql -u root -p
 source /database/schema.sql
 ```
 
-4. Replace 'password: <-MySQL DataBase Password->' with your MySQL database password in /database/connection.js
+4. Add 'DB_PASSWORD= #Your Database Password' with your MySQL database password in .env file
    ```
    password: <- Your MySQL DataBase Password ->
    ```

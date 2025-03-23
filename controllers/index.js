@@ -1,9 +1,11 @@
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const ExpressError = require("../utils/ExpressError.js");
 
-module.exports.login = (req, res, next) => {
+module.exports.login = async (req, res, next) => {
   let { username, password } = req.body;
 
-  let studentQuery = `SELECT * FROM student WHERE username = ? AND password = ?`;
+  let studentQuery = `SELECT * FROM student WHERE username = ?`;
   let q = `SELECT * FROM teacher ORDER BY rating DESC`;
   let profiles;
   try {
@@ -14,44 +16,56 @@ module.exports.login = (req, res, next) => {
       profiles = result;
     });
 
-    req.db.query(studentQuery, [username, password], (err, studentResult) => {
+    req.db.query(studentQuery, [username], async (err, studentResult) => {
       if (err) {
         console.log(err);
         return next(new ExpressError(500, "Error occur in DB"));
       }
 
       if (studentResult.length > 0) {
-        req.session.user = {
-          id: studentResult[0].id,
-          username: studentResult[0].username,
-          role: "student",
-        };
-        return res.render("layout.ejs", {
-          id: studentResult,
-          username,
-          profiles,
-        });
+        const isMatch = await bcrypt.compare(
+          password,
+          studentResult[0].password
+        );
+        if (isMatch) {
+          req.session.user = {
+            id: studentResult[0].id,
+            username: studentResult[0].username,
+            role: "student",
+          };
+          return res.render("layout.ejs", {
+            id: studentResult,
+            username,
+            profiles,
+          });
+        }
       }
 
-      let teacherQuery = `SELECT * FROM teacher WHERE username = ? AND password = ?`;
-      req.db.query(teacherQuery, [username, password], (err, teacherResult) => {
+      let teacherQuery = `SELECT * FROM teacher WHERE username = ?`;
+      req.db.query(teacherQuery, [username], async (err, teacherResult) => {
         if (err) {
           console.log(err);
           return next(new ExpressError(500, "Error occur in DB"));
         }
 
         if (teacherResult.length > 0) {
-          req.session.user = {
-            id: teacherResult[0].id,
-            username: teacherResult[0].username,
-            role: "teacher",
-          };
-          let id = teacherResult[0].id;
-          return res.render("layout.ejs", {
-            id: teacherResult,
-            username,
-            profiles,
-          });
+          const isMatch = await bcrypt.compare(
+            password,
+            teacherResult[0].password
+          );
+          if (isMatch) {
+            req.session.user = {
+              id: teacherResult[0].id,
+              username: teacherResult[0].username,
+              role: "teacher",
+            };
+            let id = teacherResult[0].id;
+            return res.render("layout.ejs", {
+              id: teacherResult,
+              username,
+              profiles,
+            });
+          }
         }
         return next(new ExpressError(400, "WRONG username or password"));
       });
