@@ -1,6 +1,21 @@
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const ExpressError = require("../utils/ExpressError.js");
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const allowedTypes = ["image/png", "image/jpg", "image/jpeg", "image/gif"];
+const maxSize = 2 * 1024 * 1024; //2MB
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: maxSize },
+  fileFilter: (req, file, cb) => {
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only PNG, JPG, JPEG and GIF files are allowed!"), false);
+    }
+  },
+});
 
 module.exports.login = async (req, res, next) => {
   let { username, password } = req.body;
@@ -153,14 +168,30 @@ module.exports.editImageForm = (req, res) => {
   res.render("editImage.ejs", { id, role });
 };
 
+module.exports.uploadImage = upload.single("image");
+
 module.exports.updateImage = (req, res, next) => {
   let { role, id } = req.params;
 
   if (!req.file) {
-    return res.status(400).send("No image uploaded.");
+    return next(new ExpressError(400, "No image uploaded"));
   }
 
   const imageData = req.file.buffer;
+  const imageType = req.file.mimetype;
+
+  if (!allowedTypes.includes(imageType)) {
+    return next(
+      new ExpressError(
+        400,
+        "Invalid image type! Only PNG, JPG, JPEG and GIF are allowed."
+      )
+    );
+  }
+
+  if (req.file.size > maxSize) {
+    return res.status(400).send("File size exceeds the 2MB limit!");
+  }
 
   let q = `UPDATE ${role} SET image = ? WHERE id = ?`;
 

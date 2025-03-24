@@ -1,8 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 const index = require("../controllers/index.js");
 
 //Login Route
@@ -21,11 +18,7 @@ router.patch("/:role/profile/:id/:col/edit", index.update);
 router.get("/:role/profile/:id/image", index.editImageForm);
 
 //Update Image Route
-router.post(
-  "/:role/profile/:id/image",
-  upload.single("image"),
-  index.updateImage
-);
+router.post("/:role/profile/:id/image", index.uploadImage, index.updateImage);
 
 //Teacher Profile
 router.get("/:id", index.teacherProfile);

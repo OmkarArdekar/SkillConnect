@@ -68,5 +68,7 @@ app.all("*", (req, res, next) => {
 
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Some Error Occur" } = err;
+  console.log(err.message);
+  message = "Something went wrong!";
   res.status(statusCode).render("error.ejs", { statusCode, message });
 });
