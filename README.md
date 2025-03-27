@@ -1,11 +1,8 @@
 # SkillConnect
 
 <!-- # Current Version:
-
 [SkillConnect Project Video](https://github.com/user-attachments/assets/acdb79e6-6081-4d56-b756-d081d95095c9)
-
 <br><h3>Previous Version:</h3>
-
 [SkillConnect Project Video](https://github.com/user-attachments/assets/101d7d0f-fc0f-424c-9622-e9419e0a6ce1) -->
 <h1><i>Description</i></h1>
 
